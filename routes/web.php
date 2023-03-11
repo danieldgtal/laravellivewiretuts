@@ -18,3 +18,7 @@ Route::get('/',function (){
   // $comments = Comment::all();
   return view('welcome');
 });
+
+Route::get('/phpinfo', function(){
+  return var_dump(function_exists('gd_info'));
+});

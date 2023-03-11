@@ -5,7 +5,12 @@
             @error('newComment')
                 <span class="error text-danger">{{ $message }}</span>
             @enderror
-
+            <section>
+                @if ($image)
+                    <img src="{{ $image }}" width="200" alt="">
+                @endif
+                <input type="file" id="image" wire:change="$emit('fileChosen')">
+            </section>
             <form action="" method="post" wire:submit.prevent="addComment">
                 <div>
                     @if (session()->has('message'))
@@ -44,8 +49,24 @@
                     </div>
                 </div>
             @endforeach
+            {{ $comments->links('pagination-links') }}
 
             <!-- more comments... -->
         </div>
     </div>
 </div>
+<script>
+    window.livewire.on('fileChosen', () => {
+        let inputField = document.getElementById('image')
+
+        let file = inputField.files[0];
+
+        let reader = new FileReader();
+
+        reader.onloadend = () => {
+            window.livewire.emit('fileUpload', reader.result)
+        }
+
+        reader.readAsDataURL(file);
+    })
+</script>
