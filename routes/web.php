@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Comment;
+use App\Http\Livewire\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',function (){
-  // $comments = Comment::all();
-  return view('welcome');
+// Route::get('/',function (){
+//   // $comments = Comment::all();
+//   return view('welcome');
+// });
+
+Route::get('/', [App\Http\Livewire\Home::class]);
+
+Route::get('/register', function(){
+  return view('livewire.register');
 });
 
-Route::get('/phpinfo', function(){
-  return var_dump(function_exists('gd_info'));
+Route::get('/login', function(){
+  return view('livewire.login');
 });
